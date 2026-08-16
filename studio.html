@@ -123,53 +123,33 @@
             });
         });
 
-        // محرك تشغيل اللحن الموسيقي المتكامل (يعمل بسلاسة تامة دون أخطاء)
-        function playMusicalMelody() {
-            try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                const audioCtx = new AudioContext();
+        // محرك نطق الكلمات الصوتي الحقيقي
+        function playMusicalMelody(customLyrics = null) {
+            const lyrics = customLyrics || document.getElementById("lyrics").value;
+            const voiceSelect = document.getElementById("voice");
+            const voiceName = voiceSelect.options[voiceSelect.selectedIndex].text;
 
-                const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 523.25];
-                let i = 0;
+            if (lyrics.trim() === "") {
+                alert("يرجى كتابة كلمات الأغنية أولاً للاستماع إليها!");
+                return;
+            }
 
-                const melodyInterval = setInterval(() => {
-                    if (audioCtx.state === 'closed') {
-                        clearInterval(melodyInterval);
-                        return;
-                    }
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
 
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
+                const utterance = new SpeechSynthesisUtterance(lyrics);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.85; 
+                utterance.pitch = 1;
 
-                    osc.type = 'triangle'; // صوت يشبه الآلات الموسيقية الدافئة
-                    osc.frequency.setValueAtTime(notes[i % notes.length], audioCtx.currentTime);
-
-                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.7);
-
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.7);
-
-                    i++;
-                }, 400);
-
-                setTimeout(() => {
-                    clearInterval(melodyInterval);
-                    if (audioCtx.state !== 'closed') {
-                        audioCtx.close();
-                    }
-                }, 10000);
-
-                alert("🎶 جارٍ تشغيل اللحن الموسيقي للطرب الأصيل...");
-            } catch (e) {
-                alert("تعذر تشغيل الصوت في هذه البيئة.");
+                window.speechSynthesis.speak(utterance);
+                alert("🎤 جارٍ الغناء الآن بصوت: " + voiceName);
+            } else {
+                alert("متصفحك لا يدعم خاصية التحدث الصوتي.");
             }
         }
 
-        // دالة تنزيل الأغنية كملف صوتي نصي/أرشيفي منظم جاهز للتحميل على الجهاز
+        // دالة تنزيل الأغنية كملف نصي منظم على الجهاز
         function downloadSongFile(genre, mood, voice, lyrics, createdAt) {
             const fileContent = `========================================\n` +
                                 `      استوديو الطرب الأصيل - أغنية مميزة     \n` +
@@ -198,11 +178,6 @@
         }
 
         document.getElementById("previewVoiceBtn").addEventListener("click", () => {
-            const lyrics = document.getElementById("lyrics").value;
-            if (lyrics.trim() === "") {
-                alert("يرجى كتابة كلمات الأغنية أولاً للاستماع إليها!");
-                return;
-            }
             playMusicalMelody();
         });
 
@@ -271,15 +246,13 @@
                             <br>
                         `;
 
-                        // زر الاستماع للحن
                         const playBtn = document.createElement("button");
                         playBtn.className = "action-btn preview-btn";
-                        playBtn.innerText = "تشغيل اللحن 🎶";
+                        playBtn.innerText = "تشغيل الأغنية 🎤";
                         playBtn.onclick = () => {
-                            playMusicalMelody();
+                            playMusicalMelody(song.lyrics);
                         };
 
-                        // زر تحميل ملف الأغنية على الجهاز
                         const exportBtn = document.createElement("button");
                         exportBtn.className = "action-btn export-btn";
                         exportBtn.innerText = "تحميل ملف الأغنية 📥";
@@ -287,7 +260,6 @@
                             downloadSongFile(song.genre, song.mood, song.voice, song.lyrics, song.createdAt);
                         };
 
-                        // زر الحذف
                         const deleteBtn = document.createElement("button");
                         deleteBtn.className = "action-btn delete-btn";
                         deleteBtn.innerText = "حذف 🗑️";
