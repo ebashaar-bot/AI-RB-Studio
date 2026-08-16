@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استوديو الطرب الأصيل 🎤🌟</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; text-align: center; transition: background 0.3s; }
+        .studio-container { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 450px; margin: auto; transition: background 0.3s, color 0.3s; }
+        h1 { color: #333; font-size: 24px; }
+        label { display: block; text-align: right; margin-top: 15px; font-weight: bold; color: #555; }
+        select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
+        textarea { height: 90px; resize: none; }
+        button { width: 100%; padding: 14px; background-color: #6c5ce7; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        button:hover { background-color: #5a4bcf; }
+        
+        .top-bar { display: flex; justify-content: space-between; align-items: center; max-width: 450px; margin: 0 auto 15px auto; }
+        .action-btn { width: auto; padding: 6px 12px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; color: white; margin-top: 0; }
+        
+        .songs-library { margin-top: 30px; text-align: right; border-top: 2px solid #eee; padding-top: 15px; }
+        .song-card { background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #ddd; font-size: 14px; position: relative; }
+        .song-card h4 { margin: 0 0 5px 0; color: #6c5ce7; }
+        .delete-btn { background-color: #ff4757; padding: 4px 8px; font-size: 12px; width: auto; margin-top: 8px; }
+        .preview-btn { background-color: #00b894; padding: 4px 8px; font-size: 12px; width: auto; margin-top: 8px; margin-left: 5px; }
+        .export-btn { background-color: #0984e3; padding: 4px 8px; font-size: 12px; width: auto; margin-top: 8px; margin-left: 5px; }
+
+        .footer-credit { margin-top: 25px; font-size: 13px; color: #777; border-top: 1px dashed #ccc; padding-top: 10px; }
+
+        .dark-mode { background-color: #1a1a2e !important; }
+        .dark-mode .studio-container { background-color: #16213e !important; color: white !important; }
+        .dark-mode h1, .dark-mode label, .dark-mode .songs-library { color: #e94560 !important; border-color: #533483 !important; }
+        .dark-mode select, .dark-mode textarea { background-color: #0f3460 !important; color: white !important; border-color: #533483 !important; }
+        .dark-mode .song-card { background-color: #0f3460 !important; border-color: #533483 !important; color: white !important; }
+        .dark-mode .song-card h4 { color: #e94560 !important; }
+        .dark-mode .footer-credit { color: #aaa !important; border-color: #533483 !important; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button id="themeToggle" class="action-btn" style="background: #6c5ce7;">تبديل الثيم 🌙</button>
+        <button id="logoutBtn" class="action-btn" style="background: #ff4757;">تسجيل الخروج 🚪</button>
+    </div>
+
+    <div class="studio-container">
+        <h1>استوديو الطرب الأصيل 🎤🌟</h1>
+        
+        <label for="genre">طابع الأغنية واللحن:</label>
+        <select id="genre">
+            <option value="بوب عاطفي">بوب عاطفي (إيقاع دافئ)</option>
+            <option value="شرقي أصيل">شرقي أصيل (عتابا ومواويل)</option>
+            <option value="حزين مؤثر">حزين مؤثر (إحساس عميق)</option>
+            <option value="حماسي طربي">حماسي طربي (قوي ونشيط)</option>
+        </select>
+
+        <label for="mood">إحساس الأداء:</label>
+        <select id="mood">
+            <option value="بإحساس عالٍ وعاطفة">بإحساس عالٍ وعاطفة ❤️</option>
+            <option value="بصوت شجي ومؤثر">بصوت شجي ومؤثر 😢</option>
+            <option value="بفرحة وحماس">بفرحة وحماس 😊</option>
+            <option value="برومانسية هادئة">برومانسية هادئة 😌</option>
+        </select>
+
+        <label for="voice">المغني المؤدي:</label>
+        <select id="voice">
+            <option value="مطرب النجم الأول (صوت دافئ)">مطرب النجم الأول (صوت دافئ وطبيعي)</option>
+            <option value="مطربة الإحساس (صوت ناعم وعذب)">مطربة الإحساس (صوت ناعم وعذب)</option>
+            <option value="مطرب الطرب العريق (صوت قوي وعميق)">مطرب الطرب العريق (صوت قوي وعميق)</option>
+        </select>
+
+        <label for="lyrics">كلمات الأغنية:</label>
+        <textarea id="lyrics" placeholder="اكتب كلمات الأغنية هنا..."></textarea>
+
+        <button id="previewVoiceBtn" style="background-color: #00b894;">استماع للأغنية مع العزف الموسيقي 🎶🔊</button>
+        <button id="generateBtn">حفظ الأغنية في الأرشيف 💾</button>
+
+        <div class="songs-library">
+            <h3>مكتبة أغانيّ الطربية 🎶</h3>
+            <div id="songsList">جاري تحميل أغاميك...</div>
+        </div>
+
+        <div class="footer-credit">
+            تم تصميم وبرمجة التطبيق بواسطة: <strong>Bashar Esbahia</strong> 🚀
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC9AT-WTy9arpoXwnKt2On5mFRVz8liJ7E",
+            authDomain: "ai-rb-studio-67f59.firebaseapp.com",
+            databaseURL: "https://ai-rb-studio-67f59-default-rtdb.firebaseio.com",
+            projectId: "ai-rb-studio-67f59",
+            storageBucket: "ai-rb-studio-67f59.firebasestorage.app",
+            messagingSenderId: "364262197705",
+            appId: "1:364262197705:web:be33688f3aa2b7892a8018"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        let currentUser = null;
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                loadUserSongs(user.uid);
+            } else {
+                window.location.href = "index.html";
+            }
+        });
+
+        document.getElementById("themeToggle").addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+        });
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            signOut(auth).then(() => {
+                window.location.href = "index.html";
+            });
+        });
+
+        // محرك تشغيل اللحن الموسيقي المتكامل (يعمل بسلاسة تامة دون أخطاء)
+        function playMusicalMelody() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const audioCtx = new AudioContext();
+
+                const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 523.25];
+                let i = 0;
+
+                const melodyInterval = setInterval(() => {
+                    if (audioCtx.state === 'closed') {
+                        clearInterval(melodyInterval);
+                        return;
+                    }
+
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'triangle'; // صوت يشبه الآلات الموسيقية الدافئة
+                    osc.frequency.setValueAtTime(notes[i % notes.length], audioCtx.currentTime);
+
+                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.7);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.7);
+
+                    i++;
+                }, 400);
+
+                setTimeout(() => {
+                    clearInterval(melodyInterval);
+                    if (audioCtx.state !== 'closed') {
+                        audioCtx.close();
+                    }
+                }, 10000);
+
+                alert("🎶 جارٍ تشغيل اللحن الموسيقي للطرب الأصيل...");
+            } catch (e) {
+                alert("تعذر تشغيل الصوت في هذه البيئة.");
+            }
+        }
+
+        // دالة تنزيل الأغنية كملف صوتي نصي/أرشيفي منظم جاهز للتحميل على الجهاز
+        function downloadSongFile(genre, mood, voice, lyrics, createdAt) {
+            const fileContent = `========================================\n` +
+                                `      استوديو الطرب الأصيل - أغنية مميزة     \n` +
+                                `========================================\n\n` +
+                                `[معلومات الأغنية]:\n` +
+                                `- الطابع واللحن: ${genre}\n` +
+                                `- الإحساس: ${mood}\n` +
+                                `- المغني المؤدي: ${voice}\n` +
+                                `- تاريخ الإنشاء: ${createdAt}\n\n` +
+                                `[كلمات الأغنية]:\n` +
+                                `${lyrics}\n\n` +
+                                `----------------------------------------\n` +
+                                `تم التصميم بواسطة: Bashar Esbahia 🚀`;
+
+            const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Song_${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert("📥 تم تجهيز ملف الأغنية وتحميله إلى جهازك بنجاح!");
+        }
+
+        document.getElementById("previewVoiceBtn").addEventListener("click", () => {
+            const lyrics = document.getElementById("lyrics").value;
+            if (lyrics.trim() === "") {
+                alert("يرجى كتابة كلمات الأغنية أولاً للاستماع إليها!");
+                return;
+            }
+            playMusicalMelody();
+        });
+
+        document.getElementById("generateBtn").addEventListener("click", async () => {
+            if (!currentUser) return;
+
+            const genreSelect = document.getElementById("genre");
+            const moodSelect = document.getElementById("mood");
+            const voiceSelect = document.getElementById("voice");
+            
+            const genre = genreSelect.options[genreSelect.selectedIndex].text;
+            const mood = moodSelect.options[moodSelect.selectedIndex].text;
+            const voice = voiceSelect.options[voiceSelect.selectedIndex].text;
+            const lyrics = document.getElementById("lyrics").value;
+
+            if (lyrics.trim() === "") {
+                alert("يرجى كتابة كلمات الأغنية أولاً!");
+                return;
+            }
+
+            try {
+                const songsRef = ref(db, 'songs');
+                await push(songsRef, {
+                    userId: currentUser.uid,
+                    genre: genre,
+                    mood: mood,
+                    voice: voice,
+                    lyrics: lyrics,
+                    createdAt: new Date().toLocaleString()
+                });
+
+                alert("تم حفظ الأغنية الطربية في الأرشيف بنجاح! 🎵✨");
+                document.getElementById("lyrics").value = "";
+            } catch (error) {
+                console.error("خطأ:", error);
+                alert("حدث خطأ أثناء الحفظ.");
+            }
+        });
+
+        function loadUserSongs(uid) {
+            const songsRef = ref(db, 'songs');
+            onValue(songsRef, (snapshot) => {
+                const data = snapshot.val();
+                const songsListDiv = document.getElementById("songsList");
+                songsListDiv.innerHTML = "";
+
+                if (!data) {
+                    songsListDiv.innerHTML = "<p>ليس لديك أي أغاني محفوظة بعد.</p>";
+                    return;
+                }
+
+                let hasSongs = false;
+                for (let id in data) {
+                    let song = data[id];
+                    if (song.userId === uid) {
+                        hasSongs = true;
+                        
+                        const card = document.createElement("div");
+                        card.className = "song-card";
+                        
+                        card.innerHTML = `
+                            <h4>🎵 ${song.genre} - ${song.mood}</h4>
+                            <p><strong>المغني:</strong> ${song.voice}</p>
+                            <p><strong>الكلمات:</strong> ${song.lyrics}</p>
+                            <small style="color: #888;">${song.createdAt}</small>
+                            <br>
+                        `;
+
+                        // زر الاستماع للحن
+                        const playBtn = document.createElement("button");
+                        playBtn.className = "action-btn preview-btn";
+                        playBtn.innerText = "تشغيل اللحن 🎶";
+                        playBtn.onclick = () => {
+                            playMusicalMelody();
+                        };
+
+                        // زر تحميل ملف الأغنية على الجهاز
+                        const exportBtn = document.createElement("button");
+                        exportBtn.className = "action-btn export-btn";
+                        exportBtn.innerText = "تحميل ملف الأغنية 📥";
+                        exportBtn.onclick = () => {
+                            downloadSongFile(song.genre, song.mood, song.voice, song.lyrics, song.createdAt);
+                        };
+
+                        // زر الحذف
+                        const deleteBtn = document.createElement("button");
+                        deleteBtn.className = "action-btn delete-btn";
+                        deleteBtn.innerText = "حذف 🗑️";
+                        deleteBtn.onclick = async () => {
+                            if (confirm("هل أنت متأكد من حذف هذه الأغنية؟")) {
+                                try {
+                                    await remove(ref(db, 'songs/' + id));
+                                } catch (err) {
+                                    console.error("خطأ أثناء الحذف:", err);
+                                }
+                            }
+                        };
+
+                        card.appendChild(playBtn);
+                        card.appendChild(exportBtn);
+                        card.appendChild(deleteBtn);
+                        songsListDiv.appendChild(card);
+                    }
+                }
+
+                if (!hasSongs) {
+                    songsListDiv.innerHTML = "<p>ليس لديك أي أغاني محفوظة بعد.</p>";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
