@@ -45,6 +45,9 @@
     <div class="studio-container">
         <h1>استوديو الطرب الأصيل 🎤🌟</h1>
         
+        <!-- زر تفعيل الصوت أولاً لإلغاء حظر المتصفح -->
+        <button id="enableAudioBtn" style="background-color: #e17055; margin-top: 0; margin-bottom: 10px;">🔊 اضغط هنا أولاً لتفعيل الصوت في الهاتف</button>
+
         <label for="genre">طابع الأغنية واللحن:</label>
         <select id="genre">
             <option value="بوب عاطفي">بوب عاطفي (إيقاع دافئ)</option>
@@ -123,7 +126,19 @@
             });
         });
 
-        // تشغيل الصوت مباشرة بدون نوافذ منبثقة تعيق النطق
+        // تفعيل الصوت عند الضغط على الزر البرتقالي أولاً
+        document.getElementById("enableAudioBtn").addEventListener("click", () => {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance("تم تفعيل الصوت بنجاح");
+                utterance.lang = 'ar-SA';
+                window.speechSynthesis.speak(utterance);
+                alert("✅ تم تفعيل الصوت في المتصفح! يمكنك الآن الاستماع للأغاني.");
+            } else {
+                alert("متصفحك لا يدعم خاصية الصوت.");
+            }
+        });
+
+        // تشغيل الصوت للكلمات
         function playMusicalMelody(customLyrics = null) {
             const lyrics = customLyrics || document.getElementById("lyrics").value;
 
@@ -146,7 +161,6 @@
             }
         }
 
-        // دالة تنزيل الأغنية كملف نصي منظم على الجهاز
         function downloadSongFile(genre, mood, voice, lyrics, createdAt) {
             const fileContent = `========================================\n` +
                                 `      استوديو الطرب الأصيل - أغنية مميزة     \n` +
