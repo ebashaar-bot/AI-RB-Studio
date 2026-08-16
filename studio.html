@@ -123,11 +123,9 @@
             });
         });
 
-        // محرك نطق الكلمات الصوتي الحقيقي
+        // تشغيل الصوت مباشرة بدون نوافذ منبثقة تعيق النطق
         function playMusicalMelody(customLyrics = null) {
             const lyrics = customLyrics || document.getElementById("lyrics").value;
-            const voiceSelect = document.getElementById("voice");
-            const voiceName = voiceSelect.options[voiceSelect.selectedIndex].text;
 
             if (lyrics.trim() === "") {
                 alert("يرجى كتابة كلمات الأغنية أولاً للاستماع إليها!");
@@ -143,7 +141,6 @@
                 utterance.pitch = 1;
 
                 window.speechSynthesis.speak(utterance);
-                alert("🎤 جارٍ الغناء الآن بصوت: " + voiceName);
             } else {
                 alert("متصفحك لا يدعم خاصية التحدث الصوتي.");
             }
