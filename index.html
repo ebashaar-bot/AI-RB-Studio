@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صانع الأغاني AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>مرحباً بك!</h2>
+        <p>سجل دخولك للبدء في صنع أغانيك</p>
+        
+        <input type="email" id="email" placeholder="البريد الإلكتروني">
+        <input type="password" id="password" placeholder="كلمة المرور">
+        
+        <button id="loginBtn">تسجيل الدخول</button>
+        <p>ليس لديك حساب؟ <a href="#" id="signupLink">إنشاء حساب جديد</a></p>
+    </div>
+        <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyC9AT-WTy9arpoXwnKt2On5mFRVz8liJ7E",
+        authDomain: "ai-rb-studio-67f59.firebaseapp.com",
+        projectId: "ai-rb-studio-67f59",
+        storageBucket: "ai-rb-studio-67f59.firebasestorage.app",
+        messagingSenderId: "364262197705",
+        appId: "1:364262197705:web:be33688f3aa2b7892a8018"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      const loginBtn = document.getElementById("loginBtn");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+
+      loginBtn.addEventListener("click", () => {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        if(email !== "" && password !== "") {
+          // محاولة تسجيل الدخول
+          signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              window.location.href = "studio.html"; // الانتقال عند نجاح الدخول
+            })
+            .catch((error) => {
+              // إنشاء حساب جديد إذا لم يكن موجوداً
+              createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                  window.location.href = "studio.html"; // الانتقال عند نجاح الإنشاء
+                })
+                .catch((error) => {
+                  alert("تأكد من كتابة البريد بشكل صحيح وكلمة مرور لا تقل عن 6 أحرف.");
+                });
+            });
+        } else {
+          alert("الرجاء كتابة البريد الإلكتروني وكلمة المرور!");
+        }
+      });
+    </script>
+
+
+</body>
+</html>
